@@ -116,7 +116,7 @@ class SignupFamily extends StatelessWidget {
                       scrollPadding: EdgeInsets.symmetric(horizontal: 20),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        label: Text("User name"),
+                        labelText:  "User name" ,
                       ),
                     ),
                     SizedBox(
@@ -129,7 +129,7 @@ class SignupFamily extends StatelessWidget {
                       keyboardType: TextInputType.emailAddress,
                       scrollPadding: EdgeInsets.symmetric(horizontal: 20),
                       decoration: InputDecoration(
-                          border: OutlineInputBorder(), label: Text("Email")),
+                          border: OutlineInputBorder(), labelText:  "Email" ),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.05,
@@ -141,7 +141,7 @@ class SignupFamily extends StatelessWidget {
                       scrollPadding: EdgeInsets.symmetric(horizontal: 20),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        label: Text("phone"),
+                        labelText:  "phone" ,
                         hintText: "+966",
                       ),
                     ),
@@ -157,7 +157,7 @@ class SignupFamily extends StatelessWidget {
                       scrollPadding: EdgeInsets.symmetric(horizontal: 20),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        label: Text("Password"),
+                        labelText:  "Password" ,
                         hintText: "",
                       ),
                     ),
@@ -167,7 +167,7 @@ class SignupFamily extends StatelessWidget {
 
                     TextFormField(
                       enabled: true,
-                      keyboardType: TextInputType.none,
+                      keyboardType: TextInputType.name,
                       onTap: () {
                         FamilyCubit.get(context).getCurrentLocation();
                         Navigator.push(
@@ -193,7 +193,7 @@ class SignupFamily extends StatelessWidget {
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: "Location",
-                          label: Text("Location")),
+                          labelText:  "Location" ),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.05,
@@ -202,7 +202,7 @@ class SignupFamily extends StatelessWidget {
                       controller: nameresController,
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
-                        label: Text("Name project"),
+                        labelText: "Name project",
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -213,7 +213,7 @@ class SignupFamily extends StatelessWidget {
                       controller: locationController,
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
-                        label: Text("name street"),
+                        labelText:  "name street" ,
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -226,7 +226,7 @@ class SignupFamily extends StatelessWidget {
                       maxLength: 300,
                       maxLines: 5,
                       decoration: InputDecoration(
-                        label: Text("Descreption"),
+                        labelText:  "Descreption" ,
                         border: OutlineInputBorder(),
                       ),
                     ),

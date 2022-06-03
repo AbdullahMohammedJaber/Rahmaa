@@ -49,7 +49,7 @@ class CompliteSign extends StatelessWidget {
                     TextFormField(
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
-                        label: Text("Name project"),
+                        labelText:  "Name project" ,
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -59,7 +59,7 @@ class CompliteSign extends StatelessWidget {
                     TextFormField(
                       keyboardType: TextInputType.name,
                       decoration: InputDecoration(
-                        label: Text("name street"),
+                        labelText:  "name street" ,
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -71,7 +71,7 @@ class CompliteSign extends StatelessWidget {
                       maxLength: 300,
                       maxLines: 5,
                       decoration: InputDecoration(
-                        label: Text("Descreption"),
+                        labelText:  "Descreption" ,
                         border: OutlineInputBorder(),
                       ),
                     ),
