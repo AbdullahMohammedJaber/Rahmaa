@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1087587980356",
+    "project_id": "rahmaa-8a279",
+    "storage_bucket": "rahmaa-8a279.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087587980356:android:8076209d5de58474c45811",
+        "android_client_info": {
+          "package_name": "com.example.rahmaa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087587980356-65go4in5d3pbdrm6a02hui5th4qg7866.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYY7XaxSM08b79epPlPqGYExPIYvke3Us"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087587980356-65go4in5d3pbdrm6a02hui5th4qg7866.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
