@@ -7,6 +7,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:rahmaa/Data/famileCubit/family_cubit.dart';
+import 'package:rahmaa/Model/FamileProductionModel/productModel.dart';
 
 import 'package:uuid/uuid.dart';
 
@@ -19,7 +21,7 @@ class UploadFamily extends StatefulWidget {
 
 class _UploadFamilyState extends State<UploadFamily> {
   final _formKey = GlobalKey<FormState>();
-
+  ProductModel productModel ;
   var _productTitle = '';
   var _productPrice = '';
 
@@ -55,7 +57,12 @@ class _UploadFamilyState extends State<UploadFamily> {
   void _trySubmit() async {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
-
+    final productId = uuid.v4();
+    productModel = new  ProductModel(uId: FamilyCubit.get(context).userModel.id
+        , pId: productId,
+        nameUser: FamilyCubit.get(context).userModel.name,
+        nameRes: FamilyCubit.get(context).userModel.nameres, lat: FamilyCubit.get(context).userModel.lat,
+        nameProduct: _productTitle, priceProduct: _productPrice, desProduct: _productDescription, imageProduct: url, count: _productQuantity, long: FamilyCubit.get(context).userModel.long);
     if (isValid) {
       _formKey.currentState.save();
       print(_productTitle);
@@ -93,17 +100,21 @@ class _UploadFamilyState extends State<UploadFamily> {
       await FirebaseFirestore.instance
           .collection('products')
           .doc(productId)
-          .set({
-        'productId': productId,
-        'productTitle': _productTitle,
-        'price': _productPrice,
-        'productImage': url,
-        'productDescription': _productDescription,
-        'productQuantity': _productQuantity,
-        'userId': _uid,
-        'createdAt': Timestamp.now(),
+          .set( {
+        'uId':FamilyCubit.get(context).userModel.id,
+        'pId':productId,
+        'nameUser':FamilyCubit.get(context).userModel.name,
+        'nameRes':FamilyCubit.get(context).userModel.nameres,
+        'lat':FamilyCubit.get(context).userModel.lat,
+        'long':FamilyCubit.get(context).userModel.long,
+        'nameProduct':_productTitle,
+        'priceProduct': _productPrice,
+        'desProduct': _productDescription,
+        'imageProduct': url,
+        'count':_productQuantity,
       });
       Navigator.canPop(context) ? Navigator.pop(context) : null;
+      FamilyCubit.get(context).getMyProduct();
     } catch (error) {
       print('error occured ${error.message}');
     } finally {

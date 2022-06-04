@@ -46,3 +46,6 @@ class GetDataUserSuccessfully extends FamilyState {}
 class GetDataUserError extends FamilyState {}
 
 class ChangedBottomBar extends FamilyState {}
+class GetDataProductMySuccessfully  extends FamilyState {}
+class GetDataProductAllSuccessfully  extends FamilyState {}
+

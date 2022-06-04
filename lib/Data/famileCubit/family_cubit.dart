@@ -9,6 +9,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 import 'package:rahmaa/Model/FamileProductionModel/location_model.dart';
+import 'package:rahmaa/Model/FamileProductionModel/productModel.dart';
 import 'package:rahmaa/Model/FamileProductionModel/user_model.dart';
 import 'package:rahmaa/Screens/Family/home.dart';
 import 'package:rahmaa/Screens/Family/profileFamily.dart';
@@ -23,6 +24,7 @@ class FamilyCubit extends Cubit<FamilyState> {
   LocationModel loca;
   static String uIdFamily;
   FamilyUserModel userModel;
+  ProductModel productModel;
   var currentIndex = 0;
   void loginFamily({
     @required String email,
@@ -173,22 +175,7 @@ class FamilyCubit extends Cubit<FamilyState> {
     });
   }
 
-  List<FamilyUserModel> userFamily;
-  void getDataUser() {
-    FirebaseFirestore.instance
-        .collection("family")
-        .doc(uIdFamily)
-        .get()
-        .then((value) {
-      print(value.data());
-
-      userFamily.add(FamilyUserModel.fromJson(value.data()));
-      emit(GetDataUserSuccessfully());
-    }).catchError((onError) {
-      print(onError.toString());
-      emit(GetDataUserError());
-    });
-  }
+  List<Map<dynamic, dynamic>> userFamily;
 
   List<Widget> screens = [
     HomeFamily(),
@@ -198,5 +185,55 @@ class FamilyCubit extends Cubit<FamilyState> {
   void changeBottomBar(index) {
     currentIndex = index;
     emit(ChangedBottomBar());
+  }
+  void getProfile(String uId){
+    FirebaseFirestore.instance.collection("family").doc(uId).get().then((value) {
+
+       userModel = FamilyUserModel.fromJson(  value.data());
+
+
+      emit(GetDataUserSuccessfully());
+    });
+
+
+  }
+  List <ProductModel> productMy =[];
+  void getMyProduct()
+  {
+    FirebaseFirestore.instance.collection("products").get().then((value)  {
+      productMy = [];
+
+        value.docs.forEach((element)   {
+          print(element.data()['uId']);
+          if(element.data()['uId']==userModel.id){
+               productMy.add(ProductModel.fromJson(element.data()));
+          }
+
+
+         });
+
+        emit(GetDataProductMySuccessfully());
+
+    });
+
+  }
+  List <ProductModel> products =[] ;
+  void getAllProduct()
+  {
+    FirebaseFirestore.instance.collection("products").get().then((value)  {
+      products = [];
+
+      value.docs.forEach((element) async {
+
+          await  products.add(ProductModel.fromJson(element.data()));
+
+
+
+      });
+
+      emit(GetDataProductAllSuccessfully());
+
+    });
+
   }
 }

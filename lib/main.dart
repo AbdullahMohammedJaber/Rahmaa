@@ -27,19 +27,20 @@ void main() async {
   }
   runApp(MyApp(
     screena: screena,
+    id: idF,
   ));
 }
 
 class MyApp extends StatelessWidget {
   final Widget screena;
-
-  const MyApp({Key key, this.screena}) : super(key: key);
+  final String id;
+  const MyApp({Key key, this.screena ,this.id}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => UserCubit()),
-        BlocProvider(create: (context) => FamilyCubit()),
+        BlocProvider(create: (context) => FamilyCubit()..getProfile(id)..getMyProduct()..getAllProduct()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
