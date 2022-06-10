@@ -14,7 +14,7 @@ class UserModel {
     @required this.phone,
     @required this.password,
   });
-  UserModel.fromJson(Map<dynamic, String> json) {
+  UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     password = json['password'];

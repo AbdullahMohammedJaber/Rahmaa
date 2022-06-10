@@ -26,7 +26,7 @@ class FamilyUserModel {
     @required this.image,
     @required this.nameres,
   });
-  FamilyUserModel.fromJson(Map<dynamic, dynamic> json) {
+  FamilyUserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     password = json['password'];

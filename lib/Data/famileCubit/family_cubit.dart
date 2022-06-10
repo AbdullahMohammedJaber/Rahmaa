@@ -175,65 +175,77 @@ class FamilyCubit extends Cubit<FamilyState> {
     });
   }
 
-  List<Map<dynamic, dynamic>> userFamily;
-
   List<Widget> screens = [
     HomeFamily(),
     UploadFamily(),
     ProfileFamily(),
   ];
   void changeBottomBar(index) {
+    if (index == 0) {
+      getMyProduct();
+    }
+
     currentIndex = index;
     emit(ChangedBottomBar());
   }
-  void getProfile(String uId){
-    FirebaseFirestore.instance.collection("family").doc(uId).get().then((value) {
 
-       userModel = FamilyUserModel.fromJson(  value.data());
-
-
+  List<FamilyUserModel> userData = [];
+  void getDataUser({@required String id}) {
+    userData = [];
+    FirebaseFirestore.instance.collection("family").doc(id).get().then((value) {
+      userData.add(FamilyUserModel.fromJson(value.data()));
       emit(GetDataUserSuccessfully());
+      print(userData[0].email);
+      print(userData[0].des);
+      print(userData[0].id);
+      print(userData[0].image);
+      print(userData[0].lat);
+      print(userData[0].long);
+      print(userData[0].street);
+      print(userData[0].nameres);
+      print(userData[0].name);
+      print(userData[0].phone);
     });
-
-
   }
-  List <ProductModel> productMy =[];
-  void getMyProduct()
-  {
-    FirebaseFirestore.instance.collection("products").get().then((value)  {
-      productMy = [];
 
-        value.docs.forEach((element)   {
-          print(element.data()['uId']);
-          if(element.data()['uId']==userModel.id){
-               productMy.add(ProductModel.fromJson(element.data()));
-          }
-
-
-         });
-
-        emit(GetDataProductMySuccessfully());
-
-    });
-
-  }
-  List <ProductModel> products =[] ;
-  void getAllProduct()
-  {
-    FirebaseFirestore.instance.collection("products").get().then((value)  {
-      products = [];
-
-      value.docs.forEach((element) async {
-
-          await  products.add(ProductModel.fromJson(element.data()));
-
-
-
+  List<ProductModel> productMy = [];
+  void getMyProduct() {
+    productMy = [];
+    FirebaseFirestore.instance.collection("products").get().then((value) {
+      value.docs.forEach((element) {
+        print(element.data()['uId']);
+        if (element.data()['uId'] == userModel.id) {
+          productMy.add(ProductModel.fromJson(element.data()));
+        }
       });
 
-      emit(GetDataProductAllSuccessfully());
-
+      emit(GetDataProductMySuccessfully());
     });
+  }
 
+  void deleteProduct({@required String id}) {
+    FirebaseFirestore.instance
+        .collection("products")
+        .doc(id)
+        .delete()
+        .then((value) {
+      print("the id is :" + id);
+      getMyProduct();
+
+      emit(DeleteProductisSuccessfully());
+    });
+  }
+
+  void logout() {
+    emit(SignoutFamilyLoaded());
+    FirebaseAuth.instance.signOut().then((value) {
+      userModel = null;
+      userData = [];
+      currentIndex = 0;
+      emit(SignoutFamilySuccessfully());
+      userModel = null;
+      userData = [];
+      currentIndex = 0;
+    });
   }
 }

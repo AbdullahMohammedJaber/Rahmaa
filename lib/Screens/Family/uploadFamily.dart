@@ -21,12 +21,12 @@ class UploadFamily extends StatefulWidget {
 
 class _UploadFamilyState extends State<UploadFamily> {
   final _formKey = GlobalKey<FormState>();
-  ProductModel productModel ;
+  ProductModel productModel;
   var _productTitle = '';
   var _productPrice = '';
 
   var _productDescription = '';
-  var _productQuantity = '';
+  var _productQuantity = 1;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   File _pickedImage;
@@ -58,11 +58,18 @@ class _UploadFamilyState extends State<UploadFamily> {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
     final productId = uuid.v4();
-    productModel = new  ProductModel(uId: FamilyCubit.get(context).userModel.id
-        , pId: productId,
+    productModel = new ProductModel(
+        uId: FamilyCubit.get(context).userModel.id,
+        pId: productId,
         nameUser: FamilyCubit.get(context).userModel.name,
-        nameRes: FamilyCubit.get(context).userModel.nameres, lat: FamilyCubit.get(context).userModel.lat,
-        nameProduct: _productTitle, priceProduct: _productPrice, desProduct: _productDescription, imageProduct: url, count: _productQuantity, long: FamilyCubit.get(context).userModel.long);
+        nameRes: FamilyCubit.get(context).userModel.nameres,
+        lat: FamilyCubit.get(context).userModel.lat,
+        nameProduct: _productTitle,
+        priceProduct: _productPrice,
+        desProduct: _productDescription,
+        imageProduct: url,
+        count: _productQuantity,
+        long: FamilyCubit.get(context).userModel.long);
     if (isValid) {
       _formKey.currentState.save();
       print(_productTitle);
@@ -100,18 +107,20 @@ class _UploadFamilyState extends State<UploadFamily> {
       await FirebaseFirestore.instance
           .collection('products')
           .doc(productId)
-          .set( {
-        'uId':FamilyCubit.get(context).userModel.id,
-        'pId':productId,
-        'nameUser':FamilyCubit.get(context).userModel.name,
-        'nameRes':FamilyCubit.get(context).userModel.nameres,
-        'lat':FamilyCubit.get(context).userModel.lat,
-        'long':FamilyCubit.get(context).userModel.long,
-        'nameProduct':_productTitle,
+          .set({
+        'uId': FamilyCubit.get(context).userModel.id,
+        'pId': productId,
+        'nameUser': FamilyCubit.get(context).userModel.name,
+        'nameRes': FamilyCubit.get(context).userModel.nameres,
+        'lat': FamilyCubit.get(context).userModel.lat,
+        'long': FamilyCubit.get(context).userModel.long,
+        'nameProduct': _productTitle,
         'priceProduct': _productPrice,
         'desProduct': _productDescription,
         'imageProduct': url,
-        'count':_productQuantity,
+        'phone': FamilyCubit.get(context).userModel.phone,
+        'street': FamilyCubit.get(context).userModel.street,
+        'count': _productQuantity,
       });
       Navigator.canPop(context) ? Navigator.pop(context) : null;
       FamilyCubit.get(context).getMyProduct();
@@ -422,7 +431,7 @@ class _UploadFamilyState extends State<UploadFamily> {
                                     labelText: 'Quantity',
                                   ),
                                   onSaved: (value) {
-                                    _productQuantity = value;
+                                    _productQuantity = int.parse(value);
                                   },
                                 ),
                               ),

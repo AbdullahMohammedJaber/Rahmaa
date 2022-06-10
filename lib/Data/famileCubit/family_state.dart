@@ -46,6 +46,13 @@ class GetDataUserSuccessfully extends FamilyState {}
 class GetDataUserError extends FamilyState {}
 
 class ChangedBottomBar extends FamilyState {}
-class GetDataProductMySuccessfully  extends FamilyState {}
-class GetDataProductAllSuccessfully  extends FamilyState {}
 
+class GetDataProductMySuccessfully extends FamilyState {}
+
+class GetDataProductAllSuccessfully extends FamilyState {}
+
+class DeleteProductisSuccessfully extends FamilyState {}
+
+class SignoutFamilySuccessfully extends FamilyState {}
+
+class SignoutFamilyLoaded extends FamilyState {}

@@ -7,7 +7,7 @@
 
    <application
         android:label="rahmaa"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/logo">
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyBTxnb71XTQuGeeXK-0sw9dEMiK_k9gFw8"/>
         <activity
